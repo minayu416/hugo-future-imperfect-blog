@@ -1,14 +1,19 @@
-# Hugo Future Imperfect
+# Hugo Future Imperfect Blog
 
-Future Imperfect is a responsive theme tailored for blogging. The name is of no
-coincidence, because it is a port of [HTML5 UP's theme](http://html5up.net/future-imperfect)
-by the same name. In addition to the original features, there are more features
-that have been added for you to utilize.
+Future Imperfect Blog is a hugo theme designed for blogging, expanded from [Hugo Future Imperfect](https://github.com/jpescador/hugo-future-imperfect). Because the original theme has not been updated for long time, so I edit it for personal requests.
 
-![Hugo Future Imperfect Screenshot](https://raw.githubusercontent.com/jpescador/hugo-future-imperfect/master/images/screenshot.png)
+![Hugo Future Imperfect Blog Screenshot](https://minayu0416.files.wordpress.com/2021/09/screen-shot-2021-09-02-at-3.00.27-pm.png)
 
-Check out this [site](https://themes.gohugo.io/theme/future-imperfect/) if you are
+In this version, I added following new features:
+- Hierarchical categories page (refered from [Tranquilpeak](https://github.com/kakawait/hugo-tranquilpeak-theme))
+- Blog views status
+- Multilingual feature and menu (refered from [Hugo Future Imperfect Slim](https://github.com/pacollins/hugo-future-imperfect-slim))
+
+
+You can visit my [blog](https://minayu.site/) if you are
 interested in seeing a live example.
+
+The following README description wrote by original authors.
 
 ## Table of Contents
 
@@ -39,9 +44,6 @@ mkdir themes
 cd themes
 git clone https://github.com/jpescador/hugo-future-imperfect.git
 ```
-
-You will then have access to the theme at _themes/hugo-future-imperfect_ from within
-your project folder.
 
 ### exampleSite
 

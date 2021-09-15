@@ -142,3 +142,32 @@
 	});
 
 })(jQuery);
+
+	// Language (header).
+
+	var language = document.getElementById("lang-menu");
+	var $body = $('body')
+
+		$body.on('click', '[href="#lang-menu"]', function(event) {
+
+			event.preventDefault();
+
+				// Not visible?
+				if (!language.classList.contains("active")) {
+
+					// Show.
+					language.classList.add("active");
+
+				} else {
+					language.classList.remove("active");
+			}});
+  
+  // Click anywhere outside a flyout to close
+  $(document).on("click", function(e) {
+	  // use fa-globe to be the translate option class
+	  // because if use nave lang-toggle, icon will disappear
+	if ($(e.target).is(".fa-globe, .lang-toggle, .lang-toggle span, #lang-menu") === false) {
+		language.classList.remove("active");
+	  // $("#wrapper").removeClass('overlay');
+	}
+  });
