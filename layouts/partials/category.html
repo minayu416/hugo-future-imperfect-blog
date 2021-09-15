@@ -1,0 +1,34 @@
+    <!-- Main -->
+    <div id="main">
+        {{ if .Site.Params.categoriesByCount }}
+            {{ $.Scratch.Set "categories" .Data.Terms.ByCount }}
+        {{ else }}
+            {{ $.Scratch.Set "categories" .Data.Terms.Alphabetical }}
+        {{ end }}
+
+        <ul class="posts">
+            <header>
+                <h1>{{ .Data.Plural }}</h1>
+            </header>
+            <h4><a href='/tags'>更多細節分類請點此 More Detail Click Here</a></h4>
+            <br>
+            {{ $data := .Data }}
+            {{ range $key, $value := $.Scratch.Get "categories" }}
+                <li>
+                    <article>
+                        <header>
+                            {{ if ne $value.Name "" }}
+                                <a href="{{"/" | relURL}}{{ $data.Plural }}/{{ $value.Name | urlize }}"><p>{{ $value.Name }}</p></a>
+                                <span style="float:right;"><p>{{ $value.Count }}</p></span>
+                            {{ else }}
+                                <p>Uncategorized</p>
+                                <span style="float:right;"><p>{{ $value.Count }}</p></span>
+                            {{ end }}
+                        </header>
+                    </article>
+                </li>
+            {{ end }}
+        </ul>
+    </div>
+
+    {{ $.Scratch.Set "showCategories" false }}

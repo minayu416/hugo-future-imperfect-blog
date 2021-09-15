@@ -1,0 +1,64 @@
+{{ if $.Site.Params.hierarchicalCategories }}
+  {{ $.Scratch.Set "max-level" 0 }}
+  {{ range where $.Site.RegularPages "Type" "post" }}
+    {{ $page := . }}
+    {{ if .Params.categories }}
+      {{ $categories := (apply .Params.categories "urlize" ".") }}
+      {{ range $index,$value := .Params.categories }}
+        {{ if gt $index ($.Scratch.Get "max-level") }}
+          {{ $.Scratch.Set "max-level" $index }}
+        {{ end }}
+        {{ $path := (printf "%s" (delimit (first (add $index 1) $categories) " ")) }}
+        {{ $name := (printf "%s-%d" ($value | urlize) $index) }}
+        {{ $level := (printf "categories-level-%d" $index) }}
+        {{ if $.Scratch.Get $name }}
+          {{ $category := ($.Scratch.Get $name) }}
+          {{ if and (not (in $category.parent ($.Scratch.Get "parent"))) (gt $index 0) }}
+            {{ $node := (dict "path" $path "name" $category.name "parents" (split (printf "%s,%s" (delimit $category.parents ",") ($.Scratch.Get "parent")) ",")) }}
+            {{ $.Scratch.Set $path $node }}
+            {{ $.Scratch.SetInMap $level $path $node }}
+          {{ end }}
+        {{ else }}
+          {{ $node := (dict "path" $path "name" $value "parents" (split ($.Scratch.Get "parent") ",")) }}
+          {{ $.Scratch.Set $name $node }}
+          {{ $.Scratch.SetInMap $level $path $node }}
+        {{ end }}
+        {{ $.Scratch.SetInMap (printf "%s" (delimit (first (add $index 1) $categories) "/")) $page.UniqueID $page }}
+        {{ $.Scratch.Set "parent" $path }}
+      {{ end }}
+      {{ $.Scratch.Set "parent" nil }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
+          <section class="boxes">
+            <h3>Category</h3>
+            {{ if $.Site.Params.hierarchicalCategories }}
+              {{ range $.Scratch.GetSortedMapValues "categories-level-0" }}
+                {{ $path := .path }}
+                <div id="posts-list-{{ .name | urlize }}" class="archive box" data-category="{{ .name }}" data-parent-categories="" style="display: block;">
+                  <h4 class="archive-title text-xlarge">
+                    <a class="link-unstyled" href="/categories/{{ .name | urlize }}">{{ .name }} ({{ $.Scratch.GetSortedMapValues $path | len }})</a>
+                  </h4>
+                  <ul class="archive-posts">
+      
+                    {{ range seq ($.Scratch.Get "max-level") }}
+                      {{ $index := . }}
+                      {{ range $.Scratch.GetSortedMapValues (printf "categories-level-%d" $index) }}
+                        {{ partial "internal/side-recursive-categories.html" (dict "scratch" $.Scratch "category" . "level" $index "parent" $path) }}
+                      {{ end }}
+                    {{ end }}
+                  </ul>
+                </div>
+              {{ end }}
+            {{ else }}
+              {{ range .Data.Terms.ByCount }}
+              <div id="posts-list-{{ .Name | urlize }}" class="archive box" data-category="{{ .Name }}" style="display: block;">
+                <h4 class="archive-title text-xlarge">
+                  <a class="link-unstyled" href="/categories/{{ .Name | urlize }}">{{ .Name }} ({{ .Pages | len }})</a>
+                </h4>
+                
+              </div>
+              {{ end }}
+            {{ end }}
+          </section>
