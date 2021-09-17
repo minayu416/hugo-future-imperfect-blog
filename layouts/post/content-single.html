@@ -6,44 +6,21 @@
       <ul class="icons">
         {{ partial "share-links" . }}
       </ul>
-    </section><article class="post">
-      {{ .Render "header" }}
-    
-      {{ if .Site.Params.socialShare }}
-        <section id="social-share">
-          <ul class="icons">
-            {{ partial "share-links" . }}
-          </ul>
-        </section>
-      {{ end }}
-    
-      {{ .Render "featured" }}
-      <div id="content">
-        {{ .Content }}
-        <hr>
-        <!-- <div>
-          <span id="busuanzi_container_page_pv">
-              <h5>Post View: <span id="busuanzi_value_page_pv"></span></h5>
-          </span>
-        </div> -->
-      </div>
-    
-      <footer> 
-        {{ .Render "footer-category" }}
-      </footer>
-    
-    </article>
-    {{ .Render "comments" }}
-    {{ .Render "prev-next" }}
-
+    </section>
   {{ end }}
 
   {{ .Render "featured" }}
   <div id="content">
     {{ .Content }}
+    <hr>
+    <!-- <div>
+      <span id="busuanzi_container_page_pv">
+          <h5>Post View: <span id="busuanzi_value_page_pv"></span></h5>
+      </span>
+    </div> -->
   </div>
 
-  <footer>
+  <footer> 
     {{ .Render "footer-category" }}
   </footer>
 
