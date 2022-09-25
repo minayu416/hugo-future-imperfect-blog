@@ -79,6 +79,10 @@
 {{ end }}
 
       {{ template "_internal/google_analytics.html" . }}
+      <!-- GA4 -->
+      {{ if .Site.Params.GoogleAnalyticsID }}
+      {{ partial "analytics-gtag.html" . }}
+      {{ end }}
     </head>
     <body>
 
